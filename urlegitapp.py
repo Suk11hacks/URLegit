@@ -11,8 +11,8 @@ Original file is located at
 
 #!pip install -q pandas scikit-learn joblib tldextract
 
-from google.colab import files
-uploaded = files.upload()
+#from google.colab import files
+#uploaded = files.upload()
 
 import pandas as pd
 import re
