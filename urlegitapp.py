@@ -11,8 +11,9 @@ Original file is located at
 
 #!pip install -q pandas scikit-learn joblib tldextract
 
-from google.colab import files
-uploaded = files.upload()
+uploaded = st.file_uploader("Upload CSV file", type=["csv"])
+if uploaded is not None:
+    df = pd.read_csv(uploaded)
 
 import pandas as pd
 import re
