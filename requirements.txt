@@ -1,5 +1,6 @@
 streamlit
 pandas
 scikit-learn
-tldextract
 joblib
+tldextract
+requests
