@@ -9,7 +9,7 @@ Original file is located at
 # The model:
 """
 
-!pip install -q pandas scikit-learn joblib tldextract
+#!pip install -q pandas scikit-learn joblib tldextract
 
 from google.colab import files
 uploaded = files.upload()
