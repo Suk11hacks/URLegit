@@ -11,16 +11,29 @@ Original file is located at
 
 #!pip install -q pandas scikit-learn joblib tldextract
 
-#from google.colab import files
-#uploaded = files.upload()
 
 import pandas as pd
 import re
 import tldextract
 
-# Replace this filename with your uploaded CSV file if different
-csv_file = list(uploaded.keys())[0]  # Automatically pick uploaded file
-df = pd.read_csv(csv_file)
+uploaded_csv = st.file_uploader("📁 Upload CSV with a column named 'url'", type=["csv"])
+
+if uploaded_csv is not None:
+    try:
+        df = pd.read_csv(uploaded_csv)
+        if "url" not in df.columns:
+            st.error("❌ CSV must contain a column named 'url'.")
+        else:
+            features = pd.DataFrame([extract_features(u) for u in df['url']])
+            df['prediction'] = model.predict(features)
+            st.dataframe(df[['url', 'prediction']])
+
+            malicious_urls = df[df['prediction'] == 1]['url']
+            for url in malicious_urls:
+                insert_url(url)
+            st.success(f"✅ Stored {len(malicious_urls)} malicious URLs.")
+    except Exception as e:
+        st.error(f"❌ Failed to process file: {e}")
 
 # ✅ Step 4: Preprocess data
 # Keep only relevant columns (assumes 'URL' and 'Label' columns exist)
